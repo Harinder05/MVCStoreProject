@@ -24,9 +24,17 @@ namespace MVCProject.Controllers
         [HttpPost]
         public IActionResult Create(Category obj)
         {
-            _db.Categories.Add(obj);
-            _db.SaveChanges();
-            return RedirectToAction("Index","Category"); // Redirect to action and controller
+            if (obj.Name == obj.DisplayOrder.ToString())
+            {
+                ModelState.AddModelError("name", " The Display Order cannot be same as Name");
+            }
+            if(ModelState.IsValid)
+            {
+                _db.Categories.Add(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index", "Category");
+            }
+            return View();
         }
     }
 }
