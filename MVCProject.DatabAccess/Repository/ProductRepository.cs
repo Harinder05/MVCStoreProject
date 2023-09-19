@@ -4,10 +4,10 @@ using MVCProject.Models;
 
 namespace MVCProject.DataAccess.Repository
 {
-    public class CategoryRepository : Repository<Category>, ICategoryRepository 
+    public class ProductRepository : Repository<Product>, IProductRepository
     {
         private ApplicationDbContext _db;
-        public CategoryRepository(ApplicationDbContext db) : base(db)
+        public ProductRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
         }
@@ -17,9 +17,9 @@ namespace MVCProject.DataAccess.Repository
             _db.SaveChanges();
         }
 
-        public void Update(Category obj)
+        public void Update(Product obj)
         {
-            _db.Categories.Update(obj);
+            _db.Products.Update(obj);
         }
     }
 }

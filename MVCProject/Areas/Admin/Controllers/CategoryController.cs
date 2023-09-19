@@ -3,8 +3,9 @@ using MVCProject.DataAccess.Data;
 using MVCProject.DataAccess.Repository.IRepository;
 using MVCProject.Models;
 
-namespace MVCProject.Controllers
+namespace MVCProject.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly ICategoryRepository _categoryRepo;
@@ -14,11 +15,11 @@ namespace MVCProject.Controllers
         }
         public IActionResult Index()
         {
-            List<Category> objCategoryList = _categoryRepo.GetAll().ToList(); 
+            List<Category> objCategoryList = _categoryRepo.GetAll().ToList();
             return View(objCategoryList);
         }
 
-        public IActionResult Create() 
+        public IActionResult Create()
         {
             return View();
         }
@@ -29,7 +30,7 @@ namespace MVCProject.Controllers
             {
                 ModelState.AddModelError("name", " The Display Order cannot be same as Name");
             }
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _categoryRepo.Add(obj);
                 _categoryRepo.Save();
@@ -46,8 +47,8 @@ namespace MVCProject.Controllers
                 return NotFound();
             }
             Category? categoryToEdit = _categoryRepo.Get(u => u.Id == id);
-            if (categoryToEdit == null) 
-            { 
+            if (categoryToEdit == null)
+            {
                 return NotFound();
             }
             return View(categoryToEdit);
@@ -57,7 +58,7 @@ namespace MVCProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                _categoryRepo.Add(obj);
+                _categoryRepo.Update(obj);
                 _categoryRepo.Save();
                 TempData["success"] = "Category updated successfully";
                 return RedirectToAction("Index", "Category");
