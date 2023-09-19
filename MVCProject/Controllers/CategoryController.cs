@@ -1,19 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVCProject.DataAccess.Data;
+using MVCProject.DataAccess.Repository.IRepository;
 using MVCProject.Models;
 
 namespace MVCProject.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ApplicationDbContext _db;
-        public CategoryController(ApplicationDbContext db)
+        private readonly ICategoryRepository _categoryRepo;
+        public CategoryController(ICategoryRepository db)
         {
-            _db = db;
+            _categoryRepo = db;
         }
         public IActionResult Index()
         {
-            List<Category> objCategoryList = _db.Categories.ToList(); 
+            List<Category> objCategoryList = _categoryRepo.GetAll().ToList(); 
             return View(objCategoryList);
         }
 
@@ -30,8 +31,8 @@ namespace MVCProject.Controllers
             }
             if(ModelState.IsValid)
             {
-                _db.Categories.Add(obj);
-                _db.SaveChanges();
+                _categoryRepo.Add(obj);
+                _categoryRepo.Save();
                 TempData["success"] = "Category created successfully";
                 return RedirectToAction("Index", "Category");
             }
@@ -44,7 +45,7 @@ namespace MVCProject.Controllers
             {
                 return NotFound();
             }
-            Category? categoryToEdit = _db.Categories.Find(id);
+            Category? categoryToEdit = _categoryRepo.Get(u => u.Id == id);
             if (categoryToEdit == null) 
             { 
                 return NotFound();
@@ -56,8 +57,8 @@ namespace MVCProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Categories.Update(obj);
-                _db.SaveChanges();
+                _categoryRepo.Add(obj);
+                _categoryRepo.Save();
                 TempData["success"] = "Category updated successfully";
                 return RedirectToAction("Index", "Category");
             }
@@ -70,7 +71,7 @@ namespace MVCProject.Controllers
             {
                 return NotFound();
             }
-            Category? categoryToEdit = _db.Categories.Find(id);
+            Category? categoryToEdit = _categoryRepo.Get(u => u.Id == id);
             if (categoryToEdit == null)
             {
                 return NotFound();
@@ -80,13 +81,13 @@ namespace MVCProject.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
         {
-            Category? obj = _db.Categories.Find(id);
+            Category? obj = _categoryRepo.Get(u => u.Id == id);
             if (obj == null)
             {
                 return NotFound();
             }
-            _db.Categories.Remove(obj);
-            _db.SaveChanges();
+            _categoryRepo.Remove(obj);
+            _categoryRepo.Save();
             TempData["success"] = "Category deleted successfully";
             return RedirectToAction("Index", "Category");
         }
