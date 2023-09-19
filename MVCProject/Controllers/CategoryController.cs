@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MVCProject.Data;
+using MVCProject.DataAccess.Data;
 using MVCProject.Models;
 
 namespace MVCProject.Controllers
