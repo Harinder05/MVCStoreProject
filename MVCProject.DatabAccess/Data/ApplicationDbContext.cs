@@ -30,7 +30,9 @@ namespace MVCProject.DataAccess.Data
                     Brand = "Apple",
                     ModelNumber = "12",
                     Price = 900,
-                    InStockQuantity = 10
+                    InStockQuantity = 10,
+                    CategoryId = 8,
+                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -40,7 +42,9 @@ namespace MVCProject.DataAccess.Data
                     Brand = "Samsung",
                     ModelNumber = "S21",
                     Price = 850,
-                    InStockQuantity = 15
+                    InStockQuantity = 15,
+                    CategoryId = 8,
+                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -50,7 +54,9 @@ namespace MVCProject.DataAccess.Data
                     Brand = "Bose",
                     ModelNumber = "QC35 II",
                     Price = 350,
-                    InStockQuantity = 8
+                    InStockQuantity = 8,
+                    CategoryId = 1,
+                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -60,7 +66,9 @@ namespace MVCProject.DataAccess.Data
                     Brand = "Canon",
                     ModelNumber = "EOS 80D",
                     Price = 1000,
-                    InStockQuantity = 12
+                    InStockQuantity = 12,
+                    CategoryId = 2,
+                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -70,7 +78,9 @@ namespace MVCProject.DataAccess.Data
                     Brand = "Dell",
                     ModelNumber = "XPS 13",
                     Price = 1300,
-                    InStockQuantity = 5
+                    InStockQuantity = 5,
+                    CategoryId = 3,
+                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -80,7 +90,9 @@ namespace MVCProject.DataAccess.Data
                     Brand = "Lenovo",
                     ModelNumber = "ThinkPad X1 Carbon",
                     Price = 1600,
-                    InStockQuantity = 3
+                    InStockQuantity = 3,
+                    CategoryId = 3,
+                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -90,7 +102,9 @@ namespace MVCProject.DataAccess.Data
                     Brand = "Sony",
                     ModelNumber = "WH-1000XM4",
                     Price = 350,
-                    InStockQuantity = 20
+                    InStockQuantity = 20,
+                    CategoryId = 1,
+                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -100,7 +114,9 @@ namespace MVCProject.DataAccess.Data
                     Brand = "Google",
                     ModelNumber = "Pixel 6",
                     Price = 700,
-                    InStockQuantity = 18
+                    InStockQuantity = 18,
+                    CategoryId = 8,
+                    ImageUrl = ""
                 }
                 );
         }

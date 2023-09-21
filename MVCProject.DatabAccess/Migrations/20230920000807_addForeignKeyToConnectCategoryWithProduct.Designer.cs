@@ -3,6 +3,7 @@ using MVCProject.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCProject.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230920000807_addForeignKeyToConnectCategoryWithProduct")]
+    partial class addForeignKeyToConnectCategoryWithProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,10 +90,6 @@ namespace MVCProject.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("InStockQuantity")
                         .HasColumnType("int");
 
@@ -118,7 +117,6 @@ namespace MVCProject.DataAccess.Migrations
                             Brand = "Apple",
                             CategoryId = 8,
                             Description = "The latest iPhone with powerful features.",
-                            ImageUrl = "",
                             InStockQuantity = 10,
                             ModelNumber = "12",
                             Price = 900.0,
@@ -130,7 +128,6 @@ namespace MVCProject.DataAccess.Migrations
                             Brand = "Samsung",
                             CategoryId = 8,
                             Description = "A flagship smartphone from Samsung.",
-                            ImageUrl = "",
                             InStockQuantity = 15,
                             ModelNumber = "S21",
                             Price = 850.0,
@@ -142,7 +139,6 @@ namespace MVCProject.DataAccess.Migrations
                             Brand = "Bose",
                             CategoryId = 1,
                             Description = "Noise-canceling wireless headphones.",
-                            ImageUrl = "",
                             InStockQuantity = 8,
                             ModelNumber = "QC35 II",
                             Price = 350.0,
@@ -154,7 +150,6 @@ namespace MVCProject.DataAccess.Migrations
                             Brand = "Canon",
                             CategoryId = 2,
                             Description = "A DSLR camera with advanced features.",
-                            ImageUrl = "",
                             InStockQuantity = 12,
                             ModelNumber = "EOS 80D",
                             Price = 1000.0,
@@ -166,7 +161,6 @@ namespace MVCProject.DataAccess.Migrations
                             Brand = "Dell",
                             CategoryId = 3,
                             Description = "A high-performance laptop from Dell.",
-                            ImageUrl = "",
                             InStockQuantity = 5,
                             ModelNumber = "XPS 13",
                             Price = 1300.0,
@@ -178,7 +172,6 @@ namespace MVCProject.DataAccess.Migrations
                             Brand = "Lenovo",
                             CategoryId = 3,
                             Description = "A business-class ultrabook from Lenovo.",
-                            ImageUrl = "",
                             InStockQuantity = 3,
                             ModelNumber = "ThinkPad X1 Carbon",
                             Price = 1600.0,
@@ -190,7 +183,6 @@ namespace MVCProject.DataAccess.Migrations
                             Brand = "Sony",
                             CategoryId = 1,
                             Description = "Wireless noise-canceling headphones.",
-                            ImageUrl = "",
                             InStockQuantity = 20,
                             ModelNumber = "WH-1000XM4",
                             Price = 350.0,
@@ -202,7 +194,6 @@ namespace MVCProject.DataAccess.Migrations
                             Brand = "Google",
                             CategoryId = 8,
                             Description = "A flagship smartphone from Google.",
-                            ImageUrl = "",
                             InStockQuantity = 18,
                             ModelNumber = "Pixel 6",
                             Price = 700.0,

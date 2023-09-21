@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MVCProject.DataAccess.Repository.IRepository;
 using MVCProject.Models;
 
@@ -8,57 +9,101 @@ namespace MVCProject.Areas.Admin.Controllers
     public class ProductController : Controller
     {
         private readonly IProductRepository _productRepo;
-        public ProductController(IProductRepository db)
+        private readonly ICategoryRepository _categoryRepo;
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public ProductController(IProductRepository db, ICategoryRepository categoryRepo, IWebHostEnvironment webHostEnvironment)
         {
             _productRepo = db;
+            _categoryRepo = categoryRepo;
+            _webHostEnvironment = webHostEnvironment;
+
         }
         public IActionResult Index()
         {
             List<Product> objProductList = _productRepo.GetAll().ToList();
+            List<Category> CategoryList = _categoryRepo.GetAll().ToList();
+            ViewBag.Categories = CategoryList;
             return View(objProductList);
         }
 
-        public IActionResult Create()
+        public IActionResult CreateAndUpdate(int? id)
         {
-            return View();
+            IEnumerable<SelectListItem> CategoryList = _categoryRepo.GetAll().Select(u => new SelectListItem
+            {
+                Text = u.Name,
+                Value = u.Id.ToString()
+            });
+            
+            ViewBag.Categories = CategoryList;
+
+            if(id == null || id == 0)
+            {
+                // Create new product view
+                return View(new Product());
+            }
+            else
+            {
+                // Update product view
+                Product obj = _productRepo.Get(u => u.Id == id);
+                return View(obj);
+            }
+            
         }
         [HttpPost]
-        public IActionResult Create(Product obj)
+        public IActionResult CreateAndUpdate(Product obj, IFormFile? imagefile)
         {
             if (ModelState.IsValid)
             {
-                _productRepo.Add(obj);
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                if(imagefile != null) 
+                {
+                    string filename = Guid.NewGuid().ToString() + Path.GetExtension(imagefile.FileName);
+                    string productPath = Path.Combine(wwwRootPath, @"images\product");
+
+                    if(!string.IsNullOrEmpty(obj.ImageUrl))
+                    {
+                        var oldImagePath = Path.Combine(wwwRootPath, obj.ImageUrl.TrimStart('\\'));
+
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
+
+                    using( var fileStream = new FileStream(Path.Combine(productPath, filename), FileMode.Create))
+                    {
+                        imagefile.CopyTo(fileStream);
+                    }
+
+                    obj.ImageUrl = @"\images\product\" + filename;
+                }
+
+                if(obj.Id == 0)
+                {
+                    _productRepo.Add(obj);
+                }
+                else
+                {
+                    _productRepo.Update(obj);
+                }
+                
                 _productRepo.Save();
                 TempData["success"] = "Product created successfully";
                 return RedirectToAction("Index", "Product");
             }
-            return View();
-        }
+            else 
+            {
+                // If validation fails, repopulate form with data
+                IEnumerable<SelectListItem> CategoryList = _categoryRepo.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                });
 
-        public IActionResult Edit(int? id)
-        {
-            if (id == null || id == 0)
-            {
-                return NotFound();
+                ViewBag.Categories = CategoryList;
+                return View(obj);
             }
-            Product? productToEdit = _productRepo.Get(u => u.Id == id);
-            if (productToEdit == null)
-            {
-                return NotFound();
-            }
-            return View(productToEdit);
-        }
-        [HttpPost]
-        public IActionResult Edit(Product obj)
-        {
-            if (ModelState.IsValid)
-            {
-                _productRepo.Update(obj);
-                _productRepo.Save();
-                TempData["success"] = "Product updated successfully";
-                return RedirectToAction("Index", "Product");
-            }
-            return View();
+            
         }
 
         public IActionResult Delete(int? id)

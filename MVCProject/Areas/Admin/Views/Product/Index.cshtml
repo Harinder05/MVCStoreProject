@@ -9,8 +9,8 @@
             </h2>
         </div>
         <div class="col-6 text-end mb-2">
-            <a asp-controller="Product" asp-action="Create" class="btn btn-primary">
-                Create new product
+            <a asp-controller="Product" asp-action="CreateAndUpdate" class="btn btn-primary">
+                Add new product
             </a>
         </div>
     </div>
@@ -18,11 +18,10 @@
     <thead>
     <tr>
         <th>Title</th>
-        <th>Description</th>
         <th>Brand</th>
         <th>Model Number</th>
         <th>Price</th>
-        <th>In Stock</th>
+        <th>In Stock Quantity</th>
         <th>Category</th>
         <th></th>
     </tr>
@@ -34,9 +33,6 @@
             <tr>
                 <td>
                     @obj.Title
-                </td>
-                <td>
-                    @obj.Description
                 </td>
                 <td>
                     @obj.Brand
@@ -51,11 +47,11 @@
                     @obj.InStockQuantity
                 </td>
                 <td>
-                    CATEGORY HERE
+                    @obj.Category.Name
                 </td>
                 <td style=" width: 300px;">
                     <div>
-                        <a asp-controller="Product" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary">
+                        <a asp-controller="Product" asp-action="CreateAndUpdate" asp-route-id="@obj.Id" class="btn btn-primary">
                             Edit
                         </a>
                             <a asp-controller="Product" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger">
