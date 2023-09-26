@@ -11,9 +11,9 @@ namespace MVCProject.Areas.Admin.Controllers
         private readonly IProductRepository _productRepo;
         private readonly ICategoryRepository _categoryRepo;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public ProductController(IProductRepository db, ICategoryRepository categoryRepo, IWebHostEnvironment webHostEnvironment)
+        public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepo, IWebHostEnvironment webHostEnvironment)
         {
-            _productRepo = db;
+            _productRepo = productRepository;
             _categoryRepo = categoryRepo;
             _webHostEnvironment = webHostEnvironment;
 
