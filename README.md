@@ -41,3 +41,18 @@ This is a web-based electronics store application developed using C#, .NET Core,
 2. Install Dependencies: Install the required NuGet packages that are in the in the project's `.csproj` file.
 3. Database Setup: Configure your database connection in the `appsettings.json` file and apply the database migrations.
 4. Run the Application: Build and start the application.
+
+## Screenshots
+
+Here are some screenshots of the Online Electronics Store:
+
+![Home Page](screenshots/customer_homepage.png)
+*The home page displaying featured products.*
+
+![Product Details](screenshots/details_page.png)
+*Product details page with additional information.*
+
+![Admin Panel](screenshots/crud_operations.png)
+*Admin panel for managing products.*
+
+Feel free to explore more screenshots in the `screenshots` folder.
